@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio BTS SIO SISR — Osama El Salhy</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --accent: #00d4ff;
+    --accent2: #7c3aed;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --border: rgba(0,212,255,0.15);
+    --green: #10b981;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Sora', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .container { max-width: 960px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+  header { padding: 80px 0 60px; border-bottom: 1px solid var(--border); }
+  .tag {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    background: rgba(0,212,255,0.08);
+    border: 1px solid rgba(0,212,255,0.2);
+    padding: 4px 12px;
+    border-radius: 2px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  h1 { font-family: 'Space Mono', monospace; font-size: clamp(28px, 5vw, 52px); font-weight: 700; color: #fff; line-height: 1.1; margin-bottom: 16px; }
+  h1 span { color: var(--accent); }
+  .subtitle { font-size: 16px; color: var(--muted); max-width: 520px; line-height: 1.7; }
+  .meta-grid { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 36px; }
+  .meta-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+  .meta-item .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+  .section { padding: 64px 0; border-bottom: 1px solid var(--border); }
+  .section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 40px; }
+  .section-label { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.7; }
+  h2 { font-size: 22px; font-weight: 600; color: #fff; }
+  .line { flex: 1; height: 1px; background: var(--border); }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    transition: border-color 0.2s, transform 0.2s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); opacity: 0; transition: opacity 0.2s; }
+  .card:hover { border-color: rgba(0,212,255,0.3); transform: translateY(-2px); }
+  .card:hover::before { opacity: 1; }
+  .card-badge { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+  .card-badge.e6 { color: #a78bfa; }
+  .card h3 { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 8px; line-height: 1.4; }
+  .card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .card-skills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+  .skill-tag { font-size: 11px; padding: 3px 8px; border-radius: 3px; background: rgba(0,212,255,0.07); border: 1px solid rgba(0,212,255,0.15); color: var(--accent); font-family: 'Space Mono', monospace; }
+  .skill-tag.purple { background: rgba(124,58,237,0.07); border-color: rgba(124,58,237,0.2); color: #a78bfa; }
+  .card-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; font-size: 12px; color: var(--accent); font-family: 'Space Mono', monospace; opacity: 0.7; }
+  .comp-grid { display: grid; gap: 10px; }
+  .comp-row { display: flex; align-items: center; gap: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 14px 20px; }
+  .comp-status { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .comp-status.ok { background: var(--green); box-shadow: 0 0 8px var(--green); }
+  .comp-name { font-size: 13px; color: var(--text); flex: 1; }
+  .comp-missions { font-size: 11px; color: var(--muted); font-family: 'Space Mono', monospace; }
+  footer { padding: 40px 0; text-align: center; }
+  footer p { font-size: 12px; color: var(--muted); font-family: 'Space Mono', monospace; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  header, .section { animation: fadeUp 0.6s ease both; }
+  .section:nth-child(2) { animation-delay: 0.1s; }
+  .section:nth-child(3) { animation-delay: 0.2s; }
+  .section:nth-child(4) { animation-delay: 0.3s; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="tag">BTS SIO · Option SISR · CNED · Session 2026</div>
+    <h1>Osama<br><span>El Salhy</span></h1>
+    <p class="subtitle">Portfolio professionnel — Épreuves E5 et E6<br>BTS Services Informatiques aux Organisations, option Solutions d'Infrastructure, Systèmes et Réseaux</p>
+    <div class="meta-grid">
+      <div class="meta-item"><span class="dot"></span> Lycée Chevrollier, Angers</div>
+      <div class="meta-item"><span class="dot"></span> Académie de Nantes</div>
+      <div class="meta-item"><span class="dot"></span> N° candidat : 02444880179</div>
+      <div class="meta-item"><span class="dot"></span> Hôpital de Château-Gontier (stages)</div>
+    </div>
+  </header>
+
+  <!-- E5 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-label">Épreuve</span>
+      <h2>E5 — Support et mise à disposition de services informatiques</h2>
+      <div class="line"></div>
+    </div>
+    <div class="cards">
+
+      <a class="card" href="Epreuve E5/E5_Migration_VLAN73/E5_creation vlan impression.pdf" target="_blank">
+        <div class="card-badge">E5 · Mission 1</div>
+        <h3>Migration des imprimantes vers le VLAN 73</h3>
+        <p>Migration progressive des imprimantes réseau hospitalières vers un VLAN dédié (VLAN 73). Reconfiguration des ports switch HPE en mode access, attribution d'IP statiques.</p>
+        <div class="card-skills">
+          <span class="skill-tag">Patrimoine</span>
+          <span class="skill-tag">Incidents</span>
+          <span class="skill-tag">VLAN 73</span>
+          <span class="skill-tag">HPE</span>
+        </div>
+        <span class="card-link">↗ Voir le document</span>
+      </a>
+
+      <a class="card" href="Epreuve E5/E5 MISSION IMPRIMANTE Maternite.pdf" target="_blank">
+        <div class="card-badge">E5 · Mission 2</div>
+        <h3>Configuration imprimante — Service Maternité</h3>
+        <p>Intégration d'une imprimante réseau dans le service maternité. Configuration réseau et affectation au VLAN d'impression dans un contexte médical sensible.</p>
+        <div class="card-skills">
+          <span class="skill-tag">Patrimoine</span>
+          <span class="skill-tag">Mise à disposition</span>
+          <span class="skill-tag">VLAN impression</span>
+        </div>
+        <span class="card-link">↗ Voir le document</span>
+      </a>
+
+      <a class="card" href="Epreuve E5/E5_Mission_changement_de_switch_vf/E5 Mission changement de switch DRH.pdf" target="_blank">
+        <div class="card-badge">E5 · Mission 3</div>
+        <h3>Remplacement de switch — Service DRH</h3>
+        <p>Migration d'un switch en production, reconfiguration des VLAN, gestion de la continuité de service et diagnostic d'incident IP statique.</p>
+        <div class="card-skills">
+          <span class="skill-tag">Patrimoine</span>
+          <span class="skill-tag">Incidents</span>
+          <span class="skill-tag">Mode projet</span>
+        </div>
+        <span class="card-link">↗ Voir le document</span>
+      </a>
+
+      <a class="card" href="Epreuve E5/E5_VEILLE_TECHNOLOGIQUE.pdf" target="_blank">
+        <div class="card-badge">E5 · Veille</div>
+        <h3>Veille technologique — Ransomwares</h3>
+        <p>Analyse des menaces ransomware en milieu hospitalier. Sources : ANSSI, CERT-FR, LeMagIT. Outils de veille et recommandations de sécurité.</p>
+        <div class="card-skills">
+          <span class="skill-tag">Développement pro</span>
+          <span class="skill-tag">Cybersécurité</span>
+          <span class="skill-tag">ANSSI</span>
+        </div>
+        <span class="card-link">↗ Voir le document</span>
+      </a>
+
+      <div class="card">
+        <div class="card-badge">E5 · Portfolio</div>
+        <h3>Présence en ligne — Ce portfolio</h3>
+        <p>Conception et publication de ce portfolio professionnel via GitHub Pages. Référencement des situations professionnelles avec liens directs vers les documents PDF.</p>
+        <div class="card-skills">
+          <span class="skill-tag">GitHub Pages</span>
+          <span class="skill-tag">HTML/CSS</span>
+          <span class="skill-tag">Présence en ligne</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- E6 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-label">Épreuve</span>
+      <h2>E6 — Administration des systèmes et des réseaux</h2>
+      <div class="line"></div>
+    </div>
+    <div class="cards">
+
+      <a class="card" href="Epreuves E6/E6 Mission SWITCH SMUR/E6 CONFIGURATION SWITCH SMUR.pdf" target="_blank">
+        <div class="card-badge e6">E6 · Réalisation 1</div>
+        <h3>Configuration switch HPE — Service SMUR</h3>
+        <p>Déploiement d'un switch HPE dans le service SMUR. Création des VLAN 1/2/4/6/46, configuration trunk vers backbone fibre, résolution d'un incident de configuration non sauvegardée.</p>
+        <div class="card-skills">
+          <span class="skill-tag purple">Concevoir</span>
+          <span class="skill-tag purple">Installer/Déployer</span>
+          <span class="skill-tag purple">Exploiter/Dépanner</span>
+        </div>
+        <span class="card-link">↗ Voir la fiche</span>
+      </a>
+
+      <a class="card" href="Epreuves E6/E6 MISSION 1 hopital VF/E6 MISSION 1 hopital VF.pdf" target="_blank">
+        <div class="card-badge e6">E6 · Réalisation 2</div>
+        <h3>Brassage RJ45 et configuration VLAN — Service IRM</h3>
+        <p>Brassage de prises RJ45 dans la baie de répartition et affectation des ports switch en mode access sur le VLAN 4 pour l'équipement IRM/Scanner.</p>
+        <div class="card-skills">
+          <span class="skill-tag purple">Installer/Déployer</span>
+          <span class="skill-tag purple">Exploiter/Dépanner</span>
+          <span class="skill-tag purple">GLPI</span>
+        </div>
+        <span class="card-link">↗ Voir la fiche</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Compétences -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-label">Bilan</span>
+      <h2>Couverture des compétences E5</h2>
+      <div class="line"></div>
+    </div>
+    <div class="comp-grid">
+      <div class="comp-row">
+        <div class="comp-status ok"></div>
+        <span class="comp-name">Gérer le patrimoine informatique</span>
+        <span class="comp-missions">Mission 1 · Mission 2 · Mission 3</span>
+      </div>
+      <div class="comp-row">
+        <div class="comp-status ok"></div>
+        <span class="comp-name">Répondre aux incidents et demandes d'assistance</span>
+        <span class="comp-missions">Mission 1 · Mission 2 · Mission 3</span>
+      </div>
+      <div class="comp-row">
+        <div class="comp-status ok"></div>
+        <span class="comp-name">Développer la présence en ligne</span>
+        <span class="comp-missions">Portfolio GitHub Pages</span>
+      </div>
+      <div class="comp-row">
+        <div class="comp-status ok"></div>
+        <span class="comp-name">Travailler en mode projet</span>
+        <span class="comp-missions">Mission 3</span>
+      </div>
+      <div class="comp-row">
+        <div class="comp-status ok"></div>
+        <span class="comp-name">Mettre à disposition un service informatique</span>
+        <span class="comp-missions">Mission 1 · Mission 2</span>
+      </div>
+      <div class="comp-row">
+        <div class="comp-status ok"></div>
+        <span class="comp-name">Organiser son développement professionnel</span>
+        <span class="comp-missions">Veille ransomwares</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Osama El Salhy · BTS SIO SISR · CNED · Session 2026<br>
+    <span style="opacity:0.4">osamaelsalhy01egy.github.io/Portfolio</span></p>
+  </footer>
+
+</div>
+</body>
+</html>
